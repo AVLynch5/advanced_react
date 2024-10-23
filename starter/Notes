@@ -1,1 +1,3 @@
 Running `npm run build` without lazy loading, these files are in dist/assets:
+    index-0a7524cc.css
+    index-f2b6ea52.js -> initially 145B

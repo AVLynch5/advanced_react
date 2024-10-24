@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useId } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { login } from '../data/authentication';
@@ -6,17 +6,20 @@ import { login } from '../data/authentication';
 export const Login = ({ setUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const id = useId();
+
   return (
     <>
       <h1>Login</h1>
       <Link to="/register">Register</Link>
       <div>
-        <label htmlFor="username">Username</label>
-        <input id="username" onChange={e => setUsername(e.target.value)} value={username} />
+        <label htmlFor={`username${id}`}>Username</label>
+        <input id={`username${id}`} onChange={e => setUsername(e.target.value)} value={username} />
       </div>
       <div>
-        <label htmlFor="password">Password</label>
-        <input id="password" onChange={e => setPassword(e.target.value)} value={password} />
+        <label htmlFor={`password${id}`}>Password</label>
+        <input id={`password${id}`} onChange={e => setPassword(e.target.value)} value={password} />
       </div>
       <button onClick={handleLogin}>Log in</button>
     </>

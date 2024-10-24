@@ -17,17 +17,6 @@ export const Cart = ({ cart, changeCartItem, removeFromCart }) => {
   const [expiryYear, setExpiryYear] = useState(user?.creditCard?.expiryYear)
   const [cvv, setCvv] = useState();
 
-  // simulate slow running function
-  const slowFunction = (val) => {
-    console.time('slowFunction');
-    for (let i = 0; i < 1e9; i++) {
-    }
-    console.timeEnd('slowFunction');
-    return val;
-  }
-  // memoize slowTip
-  const slowTip = useMemo(() => slowFunction(tip), [tip]);
-
   return (
     <section className="Cart">
       <h1>Cart</h1>
@@ -47,7 +36,7 @@ export const Cart = ({ cart, changeCartItem, removeFromCart }) => {
       <section>
         <p>Tax: {toCurrency(calculateTax(getCartTotal(cart)))}</p>
         <p>Total: {toCurrency(getCartTotal(cart) + calculateTax(getCartTotal(cart)))}</p>
-        <div>Tip: <input value={slowTip} onChange={e => setTip(+e.target.value)} type="number" step="0.01" min="0.00" /></div>
+        <div>Tip: <input value={tip} onChange={e => setTip(+e.target.value)} type="number" step="0.01" min="0.00" /></div>
         <p>Amount to charge: {toCurrency(getCartTotal(cart) + calculateTax(getCartTotal(cart)) + (tip || 0))}</p>
       </section>
       <section>

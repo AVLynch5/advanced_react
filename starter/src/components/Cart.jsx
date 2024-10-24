@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { calculateTax, getCartTotal, toCurrency } from '../data/utilities';
 import { placeOrder as placeOrderToServer } from '../data/repository';
@@ -9,7 +9,7 @@ import { UserContext } from '../App';
 export const Cart = ({ cart, changeCartItem, removeFromCart }) => {
   const user = useContext(UserContext);
   const navigate = useNavigate();
-  const [tip, setTip] = useState(undefined);
+  const [tip, setTip] = useState('');
   const [area, setArea] = useState("");
   const [location, setLocation] = useState("");
   const [pan, setPan] = useState(user?.creditCard?.PAN);
@@ -36,7 +36,7 @@ export const Cart = ({ cart, changeCartItem, removeFromCart }) => {
       <section>
         <p>Tax: {toCurrency(calculateTax(getCartTotal(cart)))}</p>
         <p>Total: {toCurrency(getCartTotal(cart) + calculateTax(getCartTotal(cart)))}</p>
-        <div>Tip: <input value={tip ?? ''} onChange={e => setTip(+e.target.value)} type="number" step="0.01" min="0.00" /></div>
+        <div>Tip: <input value={tip} onChange={e => setTip(+e.target.value)} type="number" step="0.01" min="0.00" /></div>
         <p>Amount to charge: {toCurrency(getCartTotal(cart) + calculateTax(getCartTotal(cart)) + (tip || 0))}</p>
       </section>
       <section>

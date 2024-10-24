@@ -4,7 +4,7 @@ import { getMenuItems, getOrder } from "../data/repository";
 import { getNumberOfDiners, getOrderTotal, toCurrency } from "../data/utilities";
 import './Order.css';
 
-const Order = ({ user }) => {
+const Order = () => {
   const orderId = +(useParams().orderId || 0);
   const [order, setOrder] = useState();
   const [menuItems, setMenuItems] = useState();

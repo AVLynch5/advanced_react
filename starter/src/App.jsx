@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import { useState, Suspense, lazy } from 'react';
 import { Link, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
 import { Menu } from './components/Menu';
 import { Cart } from './components/Cart';
 import { NotFound } from './components/NotFound';
-import { Order } from './components/Order';
-import { Orders } from './components/Orders';
 import { Login } from './components/Login';
 import { Register } from './components/Register';
 import './site.css';
 import { getNextCartItemId } from './data/utilities';
 import { NavBar } from './components/NavBar';
+import { Fallback } from './components/Fallback';
+
+// Order and Orders will lazy load
+const Order = lazy(() => import('./components/Order'));
+const Orders = lazy(() => import('./components/Orders'));
 
 export function App() {
   const [cart, setCart] = useState([]);
@@ -22,16 +25,18 @@ export function App() {
         <NavBar user={user} setUser={setUser} />
       </header>
       <main>
-        <Routes>
-          <Route path='/' element={<Menu addToCart={addToCart} />} />
-          <Route path="/menu" element={<Navigate to="/" replace={true} />} />
-          <Route path='/cart' element={<Cart cart={cart} removeFromCart={removeFromCart} changeCartItem={changeCartItem} user={user} />} />
-          <Route path='/orders' element={<Orders user={user} />} />
-          <Route path='/orders/:orderId' element={<Order user={user} />} />
-          <Route path='/login' element={<Login setUser={setUser} />} />
-          <Route path='/register' element={<Register setUser={setUser} />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<Fallback>Loading...</Fallback>}>
+          <Routes>
+            <Route path='/' element={<Menu addToCart={addToCart} />} />
+            <Route path="/menu" element={<Navigate to="/" replace={true} />} />
+            <Route path='/cart' element={<Cart cart={cart} removeFromCart={removeFromCart} changeCartItem={changeCartItem} user={user} />} />
+            <Route path='/orders' element={<Orders user={user} />} />
+            <Route path='/orders/:orderId' element={<Order user={user} />} />
+            <Route path='/login' element={<Login setUser={setUser} />} />
+            <Route path='/register' element={<Register setUser={setUser} />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </main>
     </>
   );

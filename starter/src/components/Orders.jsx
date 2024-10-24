@@ -3,7 +3,7 @@ import { getOrders } from '../data/repository';
 import { OrderSummary } from './OrderSummary';
 import './Orders.css';
 
-export const Orders = ({ user }) => {
+const Orders = ({ user }) => {
   const [orders, setOrders] = useState([]);
   useEffect(() => {
     getOrders()
@@ -31,4 +31,5 @@ export const Orders = ({ user }) => {
     </section>
   )
 }
+export default Orders;
 

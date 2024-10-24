@@ -1,3 +1,17 @@
+import { ToastBar } from "react-hot-toast"
+import { Orders } from "./src/components/Orders"
+
 Running `npm run build` without lazy loading, these files are in dist/assets:
     index-0a7524cc.css
     index-f2b6ea52.js -> initially 145B
+Running `npm run build` with lazy loading, these files are in dist/assets:
+    index-1ccc7021.js -> still 145B
+    index-b9c1cbff.css
+    Order-338cb004.css
+    Order-e17cd674.js
+    Orders-9eaf0f6e.js
+    Orders-f43fc386.css
+This is now 3 JS/CSS bundles - 1 for normal, 1 for Orders, 1 for Order.
+For lazy loading to Work, the imported component must be the default export!
+Rendering lazy components fine but not noticing differences in bundle size.
+With 3G throttling, home is super slow to load. I can see loading... message at orders tab. 

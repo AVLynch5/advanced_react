@@ -4,7 +4,7 @@ import { getMenuItems, getOrder } from "../data/repository";
 import { getNumberOfDiners, getOrderTotal, toCurrency } from "../data/utilities";
 import './Order.css';
 
-export const Order = ({ user }) => {
+const Order = ({ user }) => {
   const orderId = +(useParams().orderId || 0);
   const [order, setOrder] = useState();
   const [menuItems, setMenuItems] = useState();
@@ -45,3 +45,4 @@ export const Order = ({ user }) => {
     return menuItems?.find(mi => mi.id === id)
   }
 }
+export default Order;

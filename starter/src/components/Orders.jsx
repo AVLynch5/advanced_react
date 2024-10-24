@@ -3,7 +3,7 @@ import { getOrders } from '../data/repository';
 import { OrderSummary } from './OrderSummary';
 import './Orders.css';
 
-const Orders = ({ user }) => {
+const Orders = () => {
   const [orders, setOrders] = useState([]);
   useEffect(() => {
     getOrders()
@@ -25,7 +25,7 @@ const Orders = ({ user }) => {
           </tr>
         </thead>
         <tbody>
-          {orders?.map(order => <OrderSummary order={order} user={user} key={order.id} />)}
+          {orders?.map(order => <OrderSummary order={order} key={order.id} />)}
         </tbody>
       </table>
     </section>

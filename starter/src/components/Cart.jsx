@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { calculateTax, getCartTotal, toCurrency } from '../data/utilities';
 import { placeOrder as placeOrderToServer } from '../data/repository';
 
-export const Cart = ({ cart, changeCartItem, removeFromCart, user }) => {
+// import user context
+import { UserContext } from '../App';
+
+export const Cart = ({ cart, changeCartItem, removeFromCart }) => {
+  const user = useContext(UserContext);
   const navigate = useNavigate();
   const [tip, setTip] = useState(undefined);
   const [area, setArea] = useState("");

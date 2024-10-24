@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../App';
 
-export const NavBar = ({ user, setUser }) => {
+export const NavBar = ({ setUser }) => {
+  const user = useContext(UserContext);
   return (
     <nav>
       <Link to="/">Dinner and a movie</Link>
